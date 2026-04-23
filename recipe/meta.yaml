@@ -7,21 +7,21 @@ package:
   version: {{ version }}
 
 source:
-  url: https://pypi.io/packages/source/{{ name[0] }}/{{ name }}/pyls-flake8-{{ version }}.tar.gz
+  url: https://pypi.org/packages/source/{{ name[0] }}/{{ name }}/pyls-flake8-{{ version }}.tar.gz
   sha256: 630cec96e494c0f3bffa381451d71a05f46b4f4e6d9b897ad6377e81cc4f8f70
 
 build:
-  number: 0
+  number: 1
   noarch: python
   script: {{ PYTHON }} -m pip install . -vv
 
 requirements:
   host:
     - pip
-    - python >=3.6
+    - python {{ python_min }}
   run:
     - flake8 >=3.6.0
-    - python >=3.6
+    - python >={{ python_min }}
     - python-lsp-server
 
 test:
@@ -31,6 +31,7 @@ test:
     - pip check
   requires:
     - pip
+    - python {{ python_min }}
 
 about:
   home: https://github.com/emanspeaks/pyls-flake8
